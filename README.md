@@ -1,4 +1,10 @@
-# 适用于DTOD、AITOD等遥感数据集的coco eval工具
+# 适用于DTOD、AITOD等遥感数据集的快速coco eval工具
+## 0. 说明
+
+该工具基于[faster_coco_eval](https://github.com/MiXaiLL76/faster_coco_eval)
+适用于DTOD、AITOD等遥感数据集的快速coco eval工具，可以快速验证预测结果json
+提供yolo格式的真值标注json转coco格式的真值标注json工具
+
 ## 1. 安装
 
 ```shell
@@ -18,3 +24,7 @@ python yolo2coco.py -i {测试集图片} -l {测试集标签} -s {生成的coco�
 ```shell
 python eval.py -dt_json {预测结果json} -gt_json {真值标注json}
 ```
+结果包含DTOD指标和AITOD指标
+自定义指标的方式：
+修改`coco_eval/coco_eval_base.py`中Params类的setDetParams方法可指定待评测目标的`maxdet`以及`areaRng`
+修改COCOeval类的summarize方法中的子方法_summarizeDets，可指定不同的指标，_summarize第一个参数如果是1则测评AP，如果是0测评AR，按需增减，同时记得修改_count
